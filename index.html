@@ -1,1 +1,70 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MZSA AI Music</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#08080d;color:#fff}
+nav{height:70px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222;background:#0b0b10}
+.logo{font-weight:800;font-size:21px}.logo span{color:#9d6cff}nav a{color:#aaa;text-decoration:none;margin-left:20px}
+.hero{text-align:center;padding:85px 22px 60px;background:radial-gradient(circle at 20% 20%,#743cff44,transparent 30%),radial-gradient(circle at 80% 30%,#00d9ff33,transparent 30%)}
+.badge{display:inline-block;border:1px solid #ffffff22;border-radius:30px;padding:8px 13px;color:#cbb8ff;font-size:12px}
+h1{font-size:clamp(50px,10vw,90px);line-height:.98;letter-spacing:-4px;margin:22px 0}
+h1 span{background:linear-gradient(90deg,#fff,#b994ff,#60e5ff);-webkit-background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:auto;color:#aaa;font-size:18px;line-height:1.6}
+.btn{display:inline-block;border:0;border-radius:13px;padding:14px 20px;font-weight:bold;text-decoration:none;cursor:pointer}
+.primary{background:linear-gradient(90deg,#9360ff,#52d9ff);color:#fff}.secondary{background:#ffffff0d;color:#fff;border:1px solid #ffffff22}
+.actions{display:flex;justify-content:center;gap:10px;margin-top:28px}
+section{max-width:1050px;margin:auto;padding:65px 22px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.card{background:#ffffff08;border:1px solid #ffffff18;border-radius:22px;padding:24px}
+label{display:block;color:#bbb;font-size:13px;margin:15px 0 8px}
+textarea,select{width:100%;background:#09090e;color:#fff;border:1px solid #ffffff1f;border-radius:12px;padding:13px}
+textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.generate{width:100%;margin-top:18px}.muted{color:#888;font-size:13px}
+.cover{width:180px;height:180px;margin:25px auto;border-radius:25px;display:grid;place-items:center;font-size:55px;background:linear-gradient(135deg,#7d45d9,#173c62);box-shadow:0 20px 60px #0008}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{background:#ffffff06;border:1px solid #ffffff18;border-radius:18px;padding:22px}.feature p{color:#888;line-height:1.5}
+footer{text-align:center;padding:35px;border-top:1px solid #222;color:#666;font-size:12px}
+@media(max-width:750px){nav a{display:none}.grid,.features,.row{grid-template-columns:1fr}h1{letter-spacing:-2px}}
+</style>
+</head>
+<body>
+<nav><div class="logo">MZSA <span>AI MUSIC</span></div><div><a href="#create">Create</a><a href="#features">Features</a></div></nav>
+<header class="hero">
+<div class="badge">✦ AI-powered music creation</div>
+<h1>Turn your ideas into <span>music.</span></h1>
+<p>Write lyrics, choose a genre and mood, and create your next song with MZSA AI Music.</p>
+<div class="actions"><a class="btn primary" href="#create">Create a song</a><a class="btn secondary" href="#features">Features</a></div>
+</header>
+<section id="create">
+<div class="grid">
+<div class="card">
+<h2>Create your song</h2><p class="muted">Start with lyrics or a simple idea.</p>
+<label>Lyrics or idea</label>
+<textarea id="lyrics" placeholder="Example: A beautiful song about chasing dreams..."></textarea>
+<div class="row">
+<div><label>Genre</label><select id="genre"><option>Afro Pop</option><option>Pop</option><option>R&B</option><option>Hip-Hop</option><option>Gospel</option><option>Cinematic</option></select></div>
+<div><label>Mood</label><select id="mood"><option>Inspirational</option><option>Happy</option><option>Sad</option><option>Romantic</option><option>Energetic</option><option>Chill</option></select></div>
+</div>
+<button class="btn primary generate" onclick="generateSong()">Generate with MZSA AI</button>
+</div>
+<div class="card">
+<h2 id="title">Your track</h2><div class="cover">♫</div>
+<p class="muted" id="status">Your generated track will appear here.</p>
+</div>
+</div>
+</section>
+<section id="features">
+<h2>Everything starts with your idea</h2>
+<div class="features">
+<div class="feature"><h3>🎤 AI Vocals</h3><p>Prepare vocal-based song concepts for your AI backend.</p></div>
+<div class="feature"><h3>🎚️ Multiple Styles</h3><p>Explore Pop, Afro Pop, R&B, Gospel, Hip-Hop and more.</p></div>
+<div class="feature"><h3>⚡ Fast Creation</h3><p>Turn a simple idea into a polished song concept.</p></div>
+</div>
+</section>
+<footer>MZSA AI MUSIC — Create. Imagine. Listen.</footer>
+<script>
+function generateSong(){const x=document.getElementById('lyrics').value.trim();const g=document.getElementById('genre').value;const m=document.getElementById('mood').value;if(!x){document.getElementById('status').textContent='Please enter your lyrics or idea first.';return}document.getElementById('title').textContent=g+' • '+m;document.getElementById('status').textContent='Ready to generate your '+m.toLowerCase()+' '+g+' song. Connect an AI music API for real audio.'}
+</script>
+</body>
+</html>
