@@ -64,7 +64,87 @@ footer{text-align:center;padding:35px;border-top:1px solid #222;color:#666;font-
 </section>
 <footer>MZSA AI MUSIC — Create. Imagine. Listen.</footer>
 <script>
-function generateSong(){const x=document.getElementById('lyrics').value.trim();const g=document.getElementById('genre').value;const m=document.getElementById('mood').value;if(!x){document.getElementById('status').textContent='Please enter your lyrics or idea first.';return}document.getElementById('title').textContent=g+' • '+m;document.getElementById('status').textContent='Ready to generate your '+m.toLowerCase()+' '+g+' song. Connect an AI music API for real audio.'}
+async function generateSong() {
+  const lyrics = document.getElementById("lyrics").value.trim();
+  const genre = document.getElementById("genre").value;
+  const mood = document.getElementById("mood").value;
+  const status = document.getElementById("status");
+  const title = document.getElementById("title");
+  const button = document.querySelector(".generate");
+
+  if (!lyrics) {
+    status.textContent = "Please enter your lyrics or idea first.";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Creating your song...";
+  title.textContent = genre + " • " + mood;
+  status.textContent = "MZSA AI is creating your music. Please wait...";
+
+  const oldAudio = document.getElementById("mzsa-audio");
+  const oldDownload = document.getElementById("mzsa-download");
+
+  if (oldAudio) oldAudio.remove();
+  if (oldDownload) oldDownload.remove();
+
+  try {
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        lyrics: lyrics,
+        genre: genre,
+        mood: mood
+      })
+    });
+
+    if (!response.ok) {
+      let errorMessage = "Music generation failed.";
+
+      try {
+        const data = await response.json();
+        errorMessage = data.error || errorMessage;
+      } catch (_) {}
+
+      throw new Error(errorMessage);
+    }
+
+    const audioBlob = await response.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
+
+    const audio = document.createElement("audio");
+    audio.id = "mzsa-audio";
+    audio.controls = true;
+    audio.style.width = "100%";
+    audio.style.marginTop = "20px";
+    audio.src = audioUrl;
+
+    const download = document.createElement("a");
+    download.id = "mzsa-download";
+    download.href = audioUrl;
+    download.download = "MZSA-AI-Song.mp3";
+    download.textContent = "⬇ Download MP3";
+    download.className = "btn secondary";
+    download.style.display = "block";
+    download.style.textAlign = "center";
+    download.style.marginTop = "12px";
+
+    status.textContent = "Your song is ready! 🎵";
+
+    status.parentElement.appendChild(audio);
+    status.parentElement.appendChild(download);
+
+  } catch (error) {
+    console.error(error);
+    status.textContent = error.message;
+  }
+
+  button.disabled = false;
+  button.textContent = "Generate with MZSA AI";
+  }
 </script>
 </body>
 </html>
