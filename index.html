@@ -1,218 +1,172 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MZSA AI Music</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MZSA AI Music — Turn Your Ideas Into Music</title>
+<meta name="description" content="Create original songs from lyrics, ideas, moods and musical concepts with MZSA AI Music.">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#08080d;color:#fff}
-nav{height:70px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222;background:#0b0b10}
-.logo{font-weight:800;font-size:21px}.logo span{color:#9d6cff}nav a{color:#aaa;text-decoration:none;margin-left:20px}
-.hero{text-align:center;padding:85px 22px 60px;background:radial-gradient(circle at 20% 20%,#743cff44,transparent 30%),radial-gradient(circle at 80% 30%,#00d9ff33,transparent 30%)}
-.badge{display:inline-block;border:1px solid #ffffff22;border-radius:30px;padding:8px 13px;color:#cbb8ff;font-size:12px}
-h1{font-size:clamp(50px,10vw,90px);line-height:.98;letter-spacing:-4px;margin:22px 0}
-h1 span{background:linear-gradient(90deg,#fff,#b994ff,#60e5ff);-webkit-background-clip:text;color:transparent}
-.hero p{max-width:680px;margin:auto;color:#aaa;font-size:18px;line-height:1.6}
-.btn{display:inline-block;border:0;border-radius:13px;padding:14px 20px;font-weight:bold;text-decoration:none;cursor:pointer}
-.primary{background:linear-gradient(90deg,#9360ff,#52d9ff);color:#fff}.secondary{background:#ffffff0d;color:#fff;border:1px solid #ffffff22}
-.actions{display:flex;justify-content:center;gap:10px;margin-top:28px}
-section{max-width:1050px;margin:auto;padding:65px 22px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
-.card{background:#ffffff08;border:1px solid #ffffff18;border-radius:22px;padding:24px}
-label{display:block;color:#bbb;font-size:13px;margin:15px 0 8px}
-textarea,select{width:100%;background:#09090e;color:#fff;border:1px solid #ffffff1f;border-radius:12px;padding:13px}
-textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.generate{width:100%;margin-top:18px}.muted{color:#888;font-size:13px}
-.cover{width:180px;height:180px;margin:25px auto;border-radius:25px;display:grid;place-items:center;font-size:55px;background:linear-gradient(135deg,#7d45d9,#173c62);box-shadow:0 20px 60px #0008}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{background:#ffffff06;border:1px solid #ffffff18;border-radius:18px;padding:22px}.feature p{color:#888;line-height:1.5}
-footer{text-align:center;padding:35px;border-top:1px solid #222;color:#666;font-size:12px}
-@media(max-width:750px){nav a{display:none}.grid,.features,.row{grid-template-columns:1fr}h1{letter-spacing:-2px}}
+:root{--bg:#07070b;--panel:#101018;--panel2:#151522;--line:#252536;--text:#f7f7fb;--muted:#9696a9;--violet:#8b5cf6;--cyan:#55d6ff;--danger:#ff6b7a;--ok:#5ee7a8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 0%,#3b197922,transparent 30%),radial-gradient(circle at 90% 10%,#1b5d7220,transparent 28%),var(--bg);color:var(--text);font:15px Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}
+a{color:inherit;text-decoration:none}.app{min-height:100vh}.top{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid var(--line);background:#08080dcc;backdrop-filter:blur(18px);position:sticky;top:0;z-index:20}.brand{font-weight:900;letter-spacing:-.7px}.brand i{font-style:normal;color:#b99cff}.nav{display:flex;gap:8px}.nav button,.profile{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:10px}.nav button:hover,.nav button.active{background:#ffffff0b;color:#fff}.right{display:flex;align-items:center;gap:10px}.credits{background:#ffffff08;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:#ddd}.primary{border:0;background:linear-gradient(100deg,var(--violet),#5b8dff);color:#fff;box-shadow:0 12px 35px #7c3aed25}.secondary{border:1px solid var(--line);background:#ffffff08;color:#fff}.btn{border-radius:12px;padding:12px 16px;font-weight:750}.main{max-width:1180px;margin:auto;padding:42px 22px 110px}.hero{padding:55px 0 30px;max-width:850px}.eyebrow{display:inline-flex;border:1px solid #8b5cf644;background:#8b5cf612;color:#cdbbff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:700}.hero h1{font-size:clamp(48px,8vw,86px);line-height:.94;letter-spacing:-5px;margin:20px 0}.grad{background:linear-gradient(90deg,#fff,#bd9cff,#64dcff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{font-size:18px;line-height:1.7;color:var(--muted);max-width:720px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.section{display:none}.section.active{display:block}.workspace{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:18px}.card{background:linear-gradient(180deg,#ffffff09,#ffffff05);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 25px 80px #0005}.card h2{margin:0 0 7px}.muted{color:var(--muted)}label{display:block;font-size:12px;color:#bdbdcb;font-weight:700;margin:17px 0 7px}textarea,input,select{width:100%;background:#090910;color:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;outline:none}textarea{min-height:180px;resize:vertical}textarea:focus,input:focus,select:focus{border-color:#7650d5}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{padding:9px 11px;border:1px solid var(--line);background:#ffffff05;color:#aaa;border-radius:999px;font-size:12px}.chip.selected{border-color:#8b5cf6aa;background:#8b5cf622;color:#fff}.advanced{margin-top:15px;border-top:1px solid var(--line);padding-top:12px}.advanced summary{cursor:pointer;color:#ddd;font-weight:700}.generate{width:100%;margin-top:18px;padding:15px}.status{min-height:24px;color:#bfbfd0;margin-top:12px}.visual{height:220px;border-radius:18px;background:radial-gradient(circle at 50% 50%,#8b5cf622,transparent 55%),#090910;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}.bars{display:flex;gap:4px;align-items:center;height:80px}.bars span{width:4px;height:20px;border-radius:4px;background:linear-gradient(#b58cff,#59d8ff);animation:pulse .9s ease-in-out infinite alternate}.bars span:nth-child(2n){animation-delay:.2s}.bars span:nth-child(3n){animation-delay:.4s}@keyframes pulse{to{height:70px;opacity:.55}}audio{width:100%;margin-top:18px}.featuregrid,.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature,.price{background:#ffffff06;border:1px solid var(--line);border-radius:18px;padding:20px}.price.pop{border-color:#8b5cf688;box-shadow:0 15px 55px #7c3aed18}.price strong{font-size:32px}.price ul{padding-left:20px;color:var(--muted);line-height:1.9}.badge{font-size:11px;border-radius:999px;background:#8b5cf622;color:#d4c4ff;padding:6px 9px;display:inline-block}.empty{text-align:center;padding:60px 20px;color:var(--muted)}.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.modal.show{display:flex}.modal .card{max-width:430px;width:100%}.close{float:right;background:none;border:0;color:#888;font-size:22px}.notice{padding:12px;border-radius:12px;background:#ffffff08;border:1px solid var(--line);margin-top:12px;font-size:13px}.bottom{display:none}
+@media(max-width:820px){.nav{display:none}.workspace{grid-template-columns:1fr}.featuregrid,.pricing{grid-template-columns:1fr}.top{padding:0 16px}.main{padding:25px 14px 100px}.hero{padding:35px 0}.hero h1{letter-spacing:-3px}.bottom{display:flex;position:fixed;bottom:0;left:0;right:0;height:68px;background:#0b0b11ee;border-top:1px solid var(--line);backdrop-filter:blur(18px);z-index:30;justify-content:space-around}.bottom button{border:0;background:transparent;color:#999;font-size:11px}.bottom button.active{color:#c7adff}.bottom span{display:block;font-size:18px;margin-bottom:2px}.row{grid-template-columns:1fr}}
 </style>
-  <script 
-    src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-<nav><div class="logo">MZSA <span>AI MUSIC</span></div><div><a href="#create">Create</a><a href="#features">Features</a></div></nav>
-<header class="hero">
-<div class="badge">✦ AI-powered music creation</div>
-<h1>Turn your ideas into <span>music.</span></h1>
-<p>Write lyrics, choose a genre and mood, and create your next song with MZSA AI Music.</p>
-<div class="actions"><a class="btn primary" href="#create">Create a song</a><a class="btn secondary" href="#features">Features</a></div>
+<div class="app">
+<header class="top">
+  <a class="brand" href="#home">MZSA <i>AI MUSIC</i></a>
+  <nav class="nav"><button data-go="home">Home</button><button data-go="create">Create</button><button data-go="songs">My Songs</button><button data-go="explore">Explore</button><button data-go="pricing">Pricing</button></nav>
+  <div class="right"><div class="credits" id="credits">Sign in</div><button class="btn primary" id="accountBtn">Sign in</button></div>
 </header>
-<section id="create">
-<div class="grid">
-<div class="card">
-<h2>Create your song</h2><p class="muted">Start with lyrics or a simple idea.</p>
-<label>Lyrics or idea</label>
-<textarea id="lyrics" placeholder="Example: A beautiful song about chasing dreams..."></textarea>
-<div class="row">
-<div><label>Genre</label><select id="genre"><option>Afro Pop</option><option>Pop</option><option>R&B</option><option>Hip-Hop</option><option>Gospel</option><option>Cinematic</option></select></div>
-<div><label>Mood</label><select id="mood"><option>Inspirational</option><option>Happy</option><option>Sad</option><option>Romantic</option><option>Energetic</option><option>Chill</option></select></div>
-</div>
-<button class="btn primary generate" onclick="generateSong()">Generate with MZSA AI</button>
-</div>
-<div class="card">
-<h2 id="title">Your track</h2><div class="cover">♫</div>
-<p class="muted" id="status">Your generated track will appear here.</p>
-</div>
-</div>
+
+<main class="main">
+<section id="home" class="section active">
+  <div class="hero">
+    <span class="eyebrow">MZSA AI MUSIC STUDIO</span>
+    <h1>Turn Your Ideas Into <span class="grad">Music.</span></h1>
+    <p>Create original songs from lyrics, ideas, moods and musical concepts with AI vocals, instruments and polished production.</p>
+    <div class="actions"><button class="btn primary" data-go="create">Create Music</button><button class="btn secondary" data-go="explore">Explore Songs</button></div>
+  </div>
+  <div class="featuregrid">
+    <div class="feature"><h3>AI Song Generation</h3><p class="muted">Turn an idea into a complete musical concept.</p></div>
+    <div class="feature"><h3>AI Vocals</h3><p class="muted">Choose vocal direction or create an instrumental.</p></div>
+    <div class="feature"><h3>Custom Lyrics</h3><p class="muted">Use your own lyrics as the creative foundation.</p></div>
+    <div class="feature"><h3>Multiple Genres</h3><p class="muted">Pop, Afro Pop, Gospel, R&B, Hip-Hop and more.</p></div>
+    <div class="feature"><h3>Song Library</h3><p class="muted">Keep your generated tracks in your personal library.</p></div>
+    <div class="feature"><h3>Creator Workflow</h3><p class="muted">Create, listen, download and continue making music.</p></div>
+  </div>
 </section>
-<section id="features">
-<h2>Everything starts with your idea</h2>
-<div class="features">
-<div class="feature"><h3>🎤 AI Vocals</h3><p>Prepare vocal-based song concepts for your AI backend.</p></div>
-<div class="feature"><h3>🎚️ Multiple Styles</h3><p>Explore Pop, Afro Pop, R&B, Gospel, Hip-Hop and more.</p></div>
-<div class="feature"><h3>⚡ Fast Creation</h3><p>Turn a simple idea into a polished song concept.</p></div>
-</div>
+
+<section id="create" class="section">
+  <div class="workspace">
+    <div class="card">
+      <h2>Create a Song</h2><p class="muted">Describe your idea, add lyrics and choose your sound.</p>
+      <label>Song idea or lyrics</label><textarea id="lyrics" placeholder="Write lyrics or describe the song you want to create..."></textarea>
+      <div class="row">
+        <div><label>Genre</label><select id="genre"><option>Pop</option><option>Afro Pop</option><option>Afrobeats</option><option>R&B</option><option>Hip-Hop</option><option>Rap</option><option>Gospel</option><option>Worship</option><option>Rock</option><option>Indie</option><option>Electronic</option><option>Cinematic</option><option>Lo-fi</option><option>Acoustic</option><option>Reggae</option><option>Dance</option><option>Country</option><option>Soul</option><option>Jazz</option></select></div>
+        <div><label>Mood</label><select id="mood"><option>Inspirational</option><option>Happy</option><option>Sad</option><option>Romantic</option><option>Energetic</option><option>Chill</option><option>Dark</option><option>Emotional</option><option>Epic</option><option>Peaceful</option><option>Hopeful</option></select></div>
+      </div>
+      <div class="row">
+        <div><label>Vocals</label><select id="vocals"><option>Female</option><option>Male</option><option>Duet</option><option>Instrumental</option></select></div>
+        <div><label>Language</label><select id="language"><option>English</option><option>Khasi</option><option>Hindi</option><option>Bengali</option><option>Other</option></select></div>
+      </div>
+      <details class="advanced"><summary>Advanced settings</summary>
+        <div class="row"><div><label>Tempo / BPM</label><input id="tempo" placeholder="Auto"></div><div><label>Energy</label><input id="energy" placeholder="Balanced"></div></div>
+        <label>Song structure</label><select id="structure"><option>Auto</option><option>Intro → Verse → Chorus → Verse → Bridge → Final Chorus → Outro</option><option>Verse → Chorus → Verse 2 → Chorus → Outro</option></select>
+        <label>Duration</label><select id="duration"><option value="120000">2 minutes</option><option value="180000" selected>3 minutes</option><option value="240000">4 minutes</option><option value="300000">5 minutes</option></select>
+      </details>
+      <button class="btn primary generate" id="generateBtn">Generate Song</button>
+      <div class="status" id="status"></div>
+    </div>
+    <div class="card">
+      <h2>Your Track</h2><p class="muted" id="trackMeta">Your generated track will appear here.</p>
+      <div class="visual"><div class="bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+      <audio id="player" controls hidden></audio>
+      <a id="download" class="btn secondary" style="display:none;text-align:center;margin-top:10px">Download MP3</a>
+    </div>
+  </div>
 </section>
-<footer>MZSA AI MUSIC — Create. Imagine. Listen.</footer>
+
+<section id="songs" class="section"><div class="card"><h2>My Songs</h2><p class="muted">Your personal MZSA music library.</p><div class="empty" id="songsEmpty">Sign in to access your song library.</div></div></section>
+
+<section id="explore" class="section"><div class="hero"><span class="eyebrow">DISCOVER</span><h1>Explore <span class="grad">Music.</span></h1><p>Explore the MZSA experience. Public music showcase features can be enabled once songs with sharing permissions are stored.</p></div><div class="featuregrid"><div class="feature"><h3>Trending</h3><p class="muted">Coming soon.</p></div><div class="feature"><h3>New</h3><p class="muted">Coming soon.</p></div><div class="feature"><h3>Genre Collections</h3><p class="muted">Coming soon.</p></div></div></section>
+
+<section id="pricing" class="section"><div class="hero"><span class="eyebrow">PRICING</span><h1>Create more. <span class="grad">Keep creating.</span></h1><p>Start with 3 free generations. Paid plans add server-side credits for continued creation.</p></div><div class="pricing">
+  <div class="price"><span class="badge">FREE</span><h2>Try MZSA</h2><strong>₹0</strong><ul><li>3 AI song creations</li><li>Basic styles</li><li>Personal library</li></ul><button class="btn secondary" data-go="create">Start Free</button></div>
+  <div class="price"><span class="badge">BASIC</span><h2>Basic</h2><strong>₹30</strong><ul><li>Configurable song credits</li><li>MP3 download</li><li>Basic styles</li><li>Personal library</li></ul><button class="btn primary" data-buy="basic">Get Basic</button></div>
+  <div class="price pop"><span class="badge">MOST POPULAR</span><h2>Pro</h2><strong>₹88</strong><ul><li>Configurable song credits</li><li>Premium styles</li><li>Advanced controls</li><li>MP3 download</li></ul><button class="btn primary" data-buy="pro">Get Pro</button></div>
+  <div class="price"><span class="badge">ULTIMATE</span><h2>Ultra Max Pro</h2><strong>₹1000</strong><ul><li>Large configurable credit pack</li><li>Priority features where available</li><li>Advanced controls</li><li>Premium export options where supported</li></ul><button class="btn primary" data-buy="ultra">Get Ultra Max Pro</button></div>
+</div></section>
+</main>
+
+<nav class="bottom"><button data-go="home"><span>⌂</span>Home</button><button data-go="create"><span>＋</span>Create</button><button data-go="songs"><span>♫</span>Songs</button><button data-go="explore"><span>◈</span>Explore</button><button data-go="pricing"><span>◎</span>Profile</button></nav>
+
+<div class="modal" id="authModal"><div class="card"><button class="close" id="closeAuth">×</button><h2 id="authTitle">Welcome to MZSA</h2><p class="muted" id="authHint">Create an account to receive 3 free generations.</p><input id="authName" placeholder="Name" style="margin:8px 0"><input id="authEmail" type="email" placeholder="Email" style="margin:8px 0"><input id="authPassword" type="password" placeholder="Password (6+ characters)" style="margin:8px 0"><button class="btn primary" id="authAction" style="width:100%;margin-top:8px">Create account</button><button class="btn secondary" id="authSwitch" style="width:100%;margin-top:8px">I already have an account</button><div class="notice" id="authStatus"></div></div></div>
+
 <script>
-async function generateSong() {
-  const lyrics = document.getElementById("lyrics").value.trim();
-  const genre = document.getElementById("genre").value;
-  const mood = document.getElementById("mood").value;
-  const status = document.getElementById("status");
-  const title = document.getElementById("title");
-  const button = document.querySelector(".generate");
-
-  if (!lyrics) {
-    status.textContent = "Please enter your lyrics or idea first.";
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Opening payment...";
-  status.textContent = "Preparing your ₹49 payment...";
-
-  try {
-    // 1. Create Razorpay order
-    const orderResponse = await fetch("/api/create-order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    const orderData = await orderResponse.json();
-
-    if (!orderResponse.ok) {
-      throw new Error(orderData.error || "Could not create payment order.");
-    }
-
-    // 2. Open Razorpay Checkout
-    const options = {
-      key: orderData.keyId,
-      amount: orderData.amount,
-      currency: orderData.currency,
-      name: "MZSA AI Music",
-      description: "1 AI-generated song",
-      order_id: orderData.orderId,
-
-      theme: {
-        color: "#7c3aed"
-      },
-
-      handler: async function (payment) {
-        try {
-          button.textContent = "Creating your song...";
-          status.textContent =
-            "Payment successful. MZSA AI is creating your song...";
-
-          // 3. Generate only after successful Razorpay payment
-          const response = await fetch("/api/generate", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              lyrics: lyrics,
-              genre: genre,
-              mood: mood,
-
-              razorpay_order_id: payment.razorpay_order_id,
-              razorpay_payment_id: payment.razorpay_payment_id,
-              razorpay_signature: payment.razorpay_signature
-            })
-          });
-
-          if (!response.ok) {
-            let message = "Music generation failed.";
-
-            try {
-              const data = await response.json();
-              message = data.error || message;
-            } catch (_) {}
-
-            throw new Error(message);
-          }
-
-          const audioBlob = await response.blob();
-          const audioUrl = URL.createObjectURL(audioBlob);
-
-          const oldAudio = document.getElementById("mzsa-audio");
-          const oldDownload = document.getElementById("mzsa-download");
-
-          if (oldAudio) oldAudio.remove();
-          if (oldDownload) oldDownload.remove();
-
-          const audio = document.createElement("audio");
-          audio.id = "mzsa-audio";
-          audio.controls = true;
-          audio.style.width = "100%";
-          audio.style.marginTop = "20px";
-          audio.src = audioUrl;
-
-          const download = document.createElement("a");
-          download.id = "mzsa-download";
-          download.href = audioUrl;
-          download.download = "MZSA-AI-Song.mp3";
-          download.textContent = "⬇ Download MP3";
-          download.className = "btn secondary";
-          download.style.display = "block";
-          download.style.textAlign = "center";
-          download.style.marginTop = "12px";
-
-          title.textContent = genre + " • " + mood;
-          status.textContent = "Your song is ready! 🎵";
-
-          status.parentElement.appendChild(audio);
-          status.parentElement.appendChild(download);
-
-        } catch (error) {
-          console.error(error);
-          status.textContent = error.message;
-        }
-
-        button.disabled = false;
-        button.textContent = "Pay ₹49 & Generate Song";
-      },
-
-      modal: {
-        ondismiss: function () {
-          status.textContent = "Payment cancelled.";
-          button.disabled = false;
-          button.textContent = "Pay ₹49 & Generate Song";
-        }
-      }
-    };
-
-    const razorpay = new Razorpay(options);
-
-    razorpay.on("payment.failed", function () {
-      status.textContent =
-        "Payment failed. You have not been charged for the song.";
-      button.disabled = false;
-      button.textContent = "Pay ₹49 & Generate Song";
-    });
-
-    razorpay.open();
-
-  } catch (error) {
-    console.error(error);
-    status.textContent = error.message;
-    button.disabled = false;
-    button.textContent = "Pay ₹49 & Generate Song";
-  }
+let supabase=null, session=null, config=null, authMode="signup";
+const $=id=>document.getElementById(id);
+function setStatus(t){$("status").textContent=t}
+function showSection(id){document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id===id));document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===id));window.scrollTo({top:0,behavior:"smooth"})}
+document.addEventListener("click",e=>{const go=e.target.closest("[data-go]");if(go){showSection(go.dataset.go)}});
+async function loadConfig(){
+  const r=await fetch("/api/public-config"); config=await r.json();
+  const script=document.createElement("script");script.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";document.head.appendChild(script);
+  await new Promise(resolve=>script.onload=resolve);
+  supabase=window.supabase.createClient(config.supabaseUrl,config.supabaseAnonKey);
+  const state=await supabase.auth.getSession();session=state.data.session;renderAuth();
+  supabase.auth.onAuthStateChange((_e,s)=>{session=s;renderAuth()});
 }
+function renderAuth(){
+  $("accountBtn").textContent=session?"Account":"Sign in";
+  $("credits").textContent=session?"Loading credits…":"Sign in";
+  if(session) refreshMe(); else $("credits").textContent="Sign in";
+}
+async function api(path,opts={}){
+  opts.headers={...(opts.headers||{}),Authorization:"Bearer "+session.access_token,"Content-Type":"application/json"};
+  return fetch(path,opts);
+}
+async function refreshMe(){
+  const r=await api("/api/me");const d=await r.json();
+  if(!r.ok){$("credits").textContent="Account error";return}
+  const paid=Number(d.profile.paid_credits||0), free=Number(d.freeRemaining||0);
+  $("credits").textContent=free+" free • "+paid+" credits";
+}
+function openAuth(){ $("authModal").classList.add("show"); $("authStatus").textContent=""; $("authTitle").textContent=authMode==="signup"?"Create your MZSA account":"Sign in to MZSA"; $("authAction").textContent=authMode==="signup"?"Create account":"Sign in"; $("authName").style.display=authMode==="signup"?"block":"none" }
+$("accountBtn").onclick=()=>session?showSection("pricing"):openAuth();
+$("closeAuth").onclick=()=>$("authModal").classList.remove("show");
+$("authSwitch").onclick=()=>{authMode=authMode==="signup"?"signin":"signup";openAuth()};
+$("authAction").onclick=async()=>{
+  const email=$("authEmail").value.trim(),password=$("authPassword").value,name=$("authName").value.trim();
+  $("authStatus").textContent="Working…";
+  try{
+    let result;
+    if(authMode==="signup") result=await supabase.auth.signUp({email,password,options:{data:{name}}});
+    else result=await supabase.auth.signInWithPassword({email,password});
+    if(result.error) throw result.error;
+    if(authMode==="signup"&&!result.data.session){$("authStatus").textContent="Check your email to confirm your account, then sign in.";return}
+    $("authModal").classList.remove("show");
+  }catch(e){$("authStatus").textContent=e.message}
+};
+$("generateBtn").onclick=async()=>{
+  if(!session){openAuth();return}
+  const lyrics=$("lyrics").value.trim();if(!lyrics){setStatus("Please enter your lyrics or idea.");return}
+  const btn=$("generateBtn");btn.disabled=true;btn.textContent="Preparing your song…";setStatus("Checking credits…");
+  try{
+    const me=await api("/api/me");const md=await me.json();if(!me.ok)throw new Error(md.error);
+    const free=Number(md.freeRemaining||0),paid=Number(md.profile.paid_credits||0);
+    if(free+paid<=0){setStatus("Your 3 free creations are finished. Choose a plan to continue.");showSection("pricing");return}
+    setStatus("Creating melody, instruments and vocals…");
+    const r=await api("/api/generate",{method:"POST",body:JSON.stringify({
+      lyrics,genre:$("genre").value,mood:$("mood").value,vocals:$("vocals").value,language:$("language").value,
+      structure:$("structure").value,tempo:$("tempo").value,energy:$("energy").value,durationMs:Number($("duration").value)
+    })});
+    if(!r.ok){const d=await r.json();throw new Error(d.error||"Music generation failed.")}
+    const blob=await r.blob(),url=URL.createObjectURL(blob);$("player").src=url;$("player").hidden=false;
+    $("download").href=url;$("download").download="MZSA-AI-Song.mp3";$("download").style.display="block";
+    $("trackMeta").textContent=$("genre").value+" • "+$("mood").value+" • Created with MZSA AI Music";
+    setStatus("Your song is ready.");refreshMe();
+  }catch(e){setStatus=e.message?setStatus(e.message):setStatus("Music generation failed.")}
+  btn.disabled=false;btn.textContent="Generate Song";
+};
+document.querySelectorAll("[data-buy]").forEach(b=>b.onclick=()=>buy(b.dataset.buy));
+async function buy(plan){
+  if(!session){openAuth();return}
+  try{
+    const r=await api("/api/create-order",{method:"POST",body:JSON.stringify({plan})}),d=await r.json();if(!r.ok)throw new Error(d.error);
+    const rz=new Razorpay({key:d.keyId,amount:d.amount,currency:d.currency,name:"MZSA AI Music",description:"MZSA "+plan+" plan",order_id:d.orderId,theme:{color:"#8b5cf6"},
+      handler:async p=>{
+        const vr=await api("/api/verify-payment",{method:"POST",body:JSON.stringify(p)}),vd=await vr.json();
+        if(!vr.ok)throw new Error(vd.error||"We couldn't verify your payment.");
+        alert("Payment verified. "+vd.credits+" credits added.");refreshMe();
+      },modal:{ondismiss:()=>{}}
+    });rz.on("payment.failed",()=>alert("Payment could not be completed. Please try again."));rz.open();
+  }catch(e){alert(e.message||"Payment failed.")}
+}
+loadConfig().catch(e=>{console.error(e);$("credits").textContent="Configuration error"});
 </script>
+</div>
 </body>
 </html>
