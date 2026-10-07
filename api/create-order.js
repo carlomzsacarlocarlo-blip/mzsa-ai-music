@@ -49,10 +49,11 @@ export default async function handler(req, res) {
     }
 
     return res.status(200).json({
-      orderId: data.id,
-      amount: data.amount,
-      currency: data.currency
-    });
+  orderId: data.id,
+  amount: data.amount,
+  currency: data.currency,
+  keyId: keyId
+});
 
   } catch (error) {
     return res.status(500).json({
