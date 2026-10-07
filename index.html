@@ -78,73 +78,139 @@ async function generateSong() {
   }
 
   button.disabled = true;
-  button.textContent = "Creating your song...";
-  title.textContent = genre + " • " + mood;
-  status.textContent = "MZSA AI is creating your music. Please wait...";
-
-  const oldAudio = document.getElementById("mzsa-audio");
-  const oldDownload = document.getElementById("mzsa-download");
-
-  if (oldAudio) oldAudio.remove();
-  if (oldDownload) oldDownload.remove();
+  button.textContent = "Opening payment...";
+  status.textContent = "Preparing your ₹49 payment...";
 
   try {
-    const response = await fetch("/api/generate", {
+    // 1. Create Razorpay order
+    const orderResponse = await fetch("/api/create-order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        lyrics: lyrics,
-        genre: genre,
-        mood: mood
-      })
+      }
     });
 
-    if (!response.ok) {
-      let errorMessage = "Music generation failed.";
+    const orderData = await orderResponse.json();
 
-      try {
-        const data = await response.json();
-        errorMessage = data.error || errorMessage;
-      } catch (_) {}
-
-      throw new Error(errorMessage);
+    if (!orderResponse.ok) {
+      throw new Error(orderData.error || "Could not create payment order.");
     }
 
-    const audioBlob = await response.blob();
-    const audioUrl = URL.createObjectURL(audioBlob);
+    // 2. Open Razorpay Checkout
+    const options = {
+      key: orderData.keyId,
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "MZSA AI Music",
+      description: "1 AI-generated song",
+      order_id: orderData.orderId,
 
-    const audio = document.createElement("audio");
-    audio.id = "mzsa-audio";
-    audio.controls = true;
-    audio.style.width = "100%";
-    audio.style.marginTop = "20px";
-    audio.src = audioUrl;
+      theme: {
+        color: "#7c3aed"
+      },
 
-    const download = document.createElement("a");
-    download.id = "mzsa-download";
-    download.href = audioUrl;
-    download.download = "MZSA-AI-Song.mp3";
-    download.textContent = "⬇ Download MP3";
-    download.className = "btn secondary";
-    download.style.display = "block";
-    download.style.textAlign = "center";
-    download.style.marginTop = "12px";
+      handler: async function (payment) {
+        try {
+          button.textContent = "Creating your song...";
+          status.textContent =
+            "Payment successful. MZSA AI is creating your song...";
 
-    status.textContent = "Your song is ready! 🎵";
+          // 3. Generate only after successful Razorpay payment
+          const response = await fetch("/api/generate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              lyrics: lyrics,
+              genre: genre,
+              mood: mood,
 
-    status.parentElement.appendChild(audio);
-    status.parentElement.appendChild(download);
+              razorpay_order_id: payment.razorpay_order_id,
+              razorpay_payment_id: payment.razorpay_payment_id,
+              razorpay_signature: payment.razorpay_signature
+            })
+          });
+
+          if (!response.ok) {
+            let message = "Music generation failed.";
+
+            try {
+              const data = await response.json();
+              message = data.error || message;
+            } catch (_) {}
+
+            throw new Error(message);
+          }
+
+          const audioBlob = await response.blob();
+          const audioUrl = URL.createObjectURL(audioBlob);
+
+          const oldAudio = document.getElementById("mzsa-audio");
+          const oldDownload = document.getElementById("mzsa-download");
+
+          if (oldAudio) oldAudio.remove();
+          if (oldDownload) oldDownload.remove();
+
+          const audio = document.createElement("audio");
+          audio.id = "mzsa-audio";
+          audio.controls = true;
+          audio.style.width = "100%";
+          audio.style.marginTop = "20px";
+          audio.src = audioUrl;
+
+          const download = document.createElement("a");
+          download.id = "mzsa-download";
+          download.href = audioUrl;
+          download.download = "MZSA-AI-Song.mp3";
+          download.textContent = "⬇ Download MP3";
+          download.className = "btn secondary";
+          download.style.display = "block";
+          download.style.textAlign = "center";
+          download.style.marginTop = "12px";
+
+          title.textContent = genre + " • " + mood;
+          status.textContent = "Your song is ready! 🎵";
+
+          status.parentElement.appendChild(audio);
+          status.parentElement.appendChild(download);
+
+        } catch (error) {
+          console.error(error);
+          status.textContent = error.message;
+        }
+
+        button.disabled = false;
+        button.textContent = "Pay ₹49 & Generate Song";
+      },
+
+      modal: {
+        ondismiss: function () {
+          status.textContent = "Payment cancelled.";
+          button.disabled = false;
+          button.textContent = "Pay ₹49 & Generate Song";
+        }
+      }
+    };
+
+    const razorpay = new Razorpay(options);
+
+    razorpay.on("payment.failed", function () {
+      status.textContent =
+        "Payment failed. You have not been charged for the song.";
+      button.disabled = false;
+      button.textContent = "Pay ₹49 & Generate Song";
+    });
+
+    razorpay.open();
 
   } catch (error) {
     console.error(error);
     status.textContent = error.message;
+    button.disabled = false;
+    button.textContent = "Pay ₹49 & Generate Song";
   }
-
-  button.disabled = false;
-  button.textContent = "Generate with MZSA AI";
-  }
+}
 </script>
 </body>
 </html>
