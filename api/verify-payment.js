@@ -28,21 +28,15 @@ export default async function handler(req,res){
     const plan=getPlan(order.notes?.plan);
     if(!plan || Number(order.amount)!==plan.priceINR*100) return res.status(400).json({error:"Payment amount or plan mismatch."});
 
-    const existing=await dbFetch("/rest/v1/payments?razorpay_payment_id=eq."+encodeURIComponent(razorpay_payment_id)+"&select=id,status,credits,plan&limit=1");
-    if(existing?.length) return res.status(200).json({success:true,alreadyProcessed:true,credits:existing[0].credits,plan:existing[0].plan});
-
-    try{
-      await dbFetch("/rest/v1/payments","POST",[{
-        user_id:user.id,razorpay_order_id,razorpay_payment_id,
-        amount:plan.priceINR,plan:plan.name,credits:plan.credits,status:"verified"
-      }],{Prefer:"return=minimal"});
-    }catch(e){
-      const duplicate=await dbFetch("/rest/v1/payments?razorpay_payment_id=eq."+encodeURIComponent(razorpay_payment_id)+"&select=id,credits,plan&limit=1");
-      if(duplicate?.length) return res.status(200).json({success:true,alreadyProcessed:true,credits:duplicate[0].credits,plan:duplicate[0].plan});
-      throw e;
-    }
-
-    await dbFetch("/rest/v1/rpc/add_paid_credits","POST",{p_user_id:user.id,p_credits:plan.credits,p_plan:String(order.notes.plan).toLowerCase()});
+    const processed=await dbFetch("/rest/v1/rpc/process_verified_payment","POST",{
+      p_user_id:user.id,
+      p_order_id:razorpay_order_id,
+      p_payment_id:razorpay_payment_id,
+      p_amount:plan.priceINR,
+      p_plan:plan.name,
+      p_credits:plan.credits
+    });
+    return res.status(200).json({success:true,alreadyProcessed:processed?.processed===false,plan:plan.name,credits:plan.credits});
     return res.status(200).json({success:true,plan:plan.name,credits:plan.credits});
   }catch(e){return res.status(e.status||500).json({success:false,error:e.message||"Payment verification failed."});}
 }
