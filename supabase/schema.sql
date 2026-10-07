@@ -69,3 +69,24 @@ end; $$;
 grant execute on function public.reserve_generation(uuid) to service_role;
 grant execute on function public.restore_generation(uuid,text) to service_role;
 grant execute on function public.add_paid_credits(uuid,integer,text) to service_role;
+
+create or replace function public.process_verified_payment(
+ p_user_id uuid,p_order_id text,p_payment_id text,p_amount integer,p_plan text,p_credits integer
+)
+returns json
+language plpgsql
+security definer
+set search_path=public
+as $$
+declare inserted boolean;
+begin
+ insert into public.payments(user_id,razorpay_order_id,razorpay_payment_id,amount,plan,credits,status)
+ values(p_user_id,p_order_id,p_payment_id,p_amount,p_plan,p_credits,'verified')
+ on conflict (razorpay_payment_id) do nothing;
+ get diagnostics inserted = row_count;
+ if inserted then
+   update public.users set paid_credits=paid_credits+p_credits,plan=lower(p_plan) where id=p_user_id;
+ end if;
+ return json_build_object('processed',inserted,'credits',p_credits,'plan',p_plan);
+end; $$;
+grant execute on function public.process_verified_payment(uuid,text,text,integer,text,integer) to service_role;
