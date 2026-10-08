@@ -92,7 +92,6 @@ function setStatus(t){$("status").textContent=t}
 function showSection(id){document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id===id));document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===id));window.scrollTo({top:0,behavior:"smooth"})}
 document.addEventListener("click",e=>{const go=e.target.closest("[data-go]");if(go){showSection(go.dataset.go)}});
 async function loadConfig(){
-async function loadConfig(){
   const r=await fetch("/api/public-config",{cache:"no-store"});
   const raw=await r.text();
 
