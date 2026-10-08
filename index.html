@@ -158,8 +158,16 @@ async function refreshMe(){
   $("credits").textContent=free+" free • "+paid+" credits";
 }
 function openAuth(){ $("authModal").classList.add("show"); $("authStatus").textContent=""; $("authTitle").textContent=authMode==="signup"?"Create your MZSA account":"Sign in to MZSA"; $("authAction").textContent=authMode==="signup"?"Create account":"Sign in"; $("authName").style.display=authMode==="signup"?"block":"none" }
-$("accountBtn").onclick=()=>session?showSection("pricing"):openAuth();
-$("closeAuth").onclick=()=>$("authModal").classList.remove("show");
+$("accountBtn").addEventListener("click",function(){
+  if(session){
+    showSection("pricing");
+  }else{
+    openAuth();
+  }
+});
+$("closeAuth").addEventListener("click",function(){
+  $("authModal").classList.remove("show");
+});
 $("authSwitch").onclick=()=>{authMode=authMode==="signup"?"signin":"signup";openAuth()};
 $("authAction").onclick=async()=>{
   const email=$("authEmail").value.trim(),password=$("authPassword").value,name=$("authName").value.trim();
