@@ -111,23 +111,16 @@ async function loadConfig(){
 
   config=cfg;
 
-  const script=document.createElement("script");
-  script.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+  const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
 
-  await new Promise((resolve,reject)=>{
-    script.onload=resolve;
-    script.onerror=()=>reject(new Error("Supabase JS failed to load."));
-    document.head.appendChild(script);
-  });
+if(typeof createClient!=="function"){
+  throw new Error("Supabase createClient is unavailable.");
+}
 
-  if(!window.supabase?.createClient){
-    throw new Error("Supabase client failed to initialize.");
-  }
-
-  supabase=window.supabase.createClient(
-    config.supabaseUrl,
-    config.supabaseAnonKey
-  );
+supabase=createClient(
+  config.supabaseUrl,
+  config.supabaseAnonKey
+);
 
   const state=await supabase.auth.getSession();
 
