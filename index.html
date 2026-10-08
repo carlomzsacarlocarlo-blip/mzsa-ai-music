@@ -215,7 +215,7 @@ async function buy(plan){
     });rz.on("payment.failed",()=>alert("Payment could not be completed. Please try again."));rz.open();
   }catch(e){alert(e.message||"Payment failed.")}
 }
-loadConfig().catch(e=>{console.error(e);$("credits").textContent="Configuration error"});
+loadConfig().catch(e=>{console.error("MZSA CONFIG ERROR:",e);$("credits").textContent="ERROR: "+(e.message||String(e))});
 </script>
 </div>
 </body>
